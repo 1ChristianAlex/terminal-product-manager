@@ -1,3 +1,5 @@
-const opt = require('./src/view/options');
+(async () => {
+  const opt = require('./src/view/options');
 
-new opt().goTo();
+  new opt().goTo();
+})();

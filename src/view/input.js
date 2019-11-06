@@ -5,7 +5,6 @@ const getInput = async mensage => {
     terminal(`\n${mensage}\n`);
     terminal.inputField((err, input) => {
       if (err) rej(err);
-
       res(input);
     });
   });

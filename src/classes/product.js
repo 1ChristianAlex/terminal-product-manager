@@ -1,20 +1,25 @@
-let store = require('./stock');
+const JsonDB = require('../helpers/jsonDB');
 
 class Product {
-  constructor(name, qnty, price) {
+  constructor(name, qnty, price, sku) {
     this.Name = name;
     this.Qnty = qnty;
     this.Price = price;
+    this.Sku = sku;
   }
 
   get getName() {
     return this.Name;
+  }
+  get getSku() {
+    return this.Sku;
   }
   get getPrice() {
     let [real, cents] = parseFloat(this.Price)
       .toFixed(2)
       .toString()
       .split('.');
+    console.log(this);
 
     return `$${real},${cents}`;
   }
@@ -22,21 +27,21 @@ class Product {
     return this.Qnty;
   }
   createProduct() {
-    let id = store.length;
-
     let name = this.getName;
     let price = this.getPrice;
     let qnty = this.getQnty;
+    let sku = this.Sku;
 
     let product = {
-      id,
-      name,
       price,
+      name,
+      sku,
       qnty
     };
-    store.set(name, product);
+    let Db = new JsonDB();
 
-    return 'Produto cadastrado com sucesso';
+    Db.Register(product);
+    return product;
   }
 }
 

@@ -2,16 +2,17 @@ const CrudView = require('../view/crud');
 const { terminal } = require('terminal-kit');
 class OptionsMsg {
   constructor() {
-    this.Options = ['Register', 'List'];
+    this.Options = ['Register', 'List', 'GetBySKU'];
 
     (() => {
       let goT = this.goTo.bind(this);
       let kill = this.getKill.bind(this);
+
       terminal.on('key', async function(name, matches, data) {
-        if (name == '/') {
+        if (name == 'ESCAPE') {
           await goT();
         }
-        if (name == '?') {
+        if (name == 'CTRL_C') {
           kill();
         }
       });
@@ -39,7 +40,9 @@ class OptionsMsg {
         case 'List':
           await crudV.ListProduct();
           break;
-
+        case 'GetBySKU':
+          await crudV.getBySKU();
+          break;
         default:
           break;
       }
